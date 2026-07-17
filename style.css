@@ -1,0 +1,546 @@
+/* CSS RESET & VARIABLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    /* Elfaria Albis (Elfie) Blue Palette */
+    --elfie-dark: #0b132b;
+    --elfie-deep-blue: #1c2541;
+    --elfie-magic-blue: #3a506b;
+    --elfie-light-blue: #5bc0be;
+    --elfie-ice: #e0f2fe; 
+    --elfie-glow: #38bdf8;
+}
+
+body {
+    background-color: var(--elfie-dark);
+    color: var(--elfie-ice);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Canvas Background */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    filter: blur(56px);
+    opacity: 0.78;
+    pointer-events: none;
+}
+
+/* Header / Hero Section */
+/* ==========================================================
+   PERBAIKAN HEADER BACKGROUND BLUR & GELAP (DIJAMIN AMAN)
+   ========================================================== */
+
+header {
+    position: relative;
+    padding: 6rem 2rem;
+    text-align: center;
+    border-bottom: 3px solid var(--elfie-glow);
+    background-color: var(--elfie-dark); /* Warna dasar jika foto gagal load */
+    
+    /* DUA BARIS INI KUNCI UTAMA BIAR BLUR GAK MELUBER KELUAR HEADER */
+    overflow: hidden; 
+    z-index: 1;
+}
+
+/* Layer Khusus Foto + Blur */
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('buur.jpeg');
+    background-size: cover;
+    background-position: center 30%;
+    
+    /* Efek Blur */
+    filter: blur(15px);
+    -webkit-filter: blur(15px);
+    transform: scale(1.1); /* Menghilangkan garis putih di ujung border */
+    
+    /* Taruh di paling bawah dalam header */
+    z-index: -2; 
+}
+
+/* Layer Khusus Gelap (Overlay) */
+header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 19, 43, 0.75); /* Tingkat kegelapan 75% */
+    
+    /* Di atas foto blur, tapi di bawah teks */
+    z-index: -1; 
+}
+
+/* Memastikan tulisan & foto profil tetap tajam di depan */
+.header-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* --- GAYA FOTO PROFIL BULAT DI DEPAN --- */
+.profile-avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+    border: 3px solid var(--elfie-glow);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 0 35px rgba(56, 189, 248, 0.9), 0 0 15px #ffffff;
+    border-color: #ffffff;
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 4rem 1rem;
+    }
+    .profile-avatar {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+/* --- GAYA FOTO PROFIL HEADER --- */
+.profile-avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-title {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+.profile-subtitle {
+    color: var(--elfie-glow);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.profile-kecil {
+    color: grey;
+    font-size: 1rem;
+    margin-top: 1rem;
+    font-weight: 125;
+}
+
+
+
+/* Layout Container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: var(--elfie-glow);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--elfie-glow);
+    padding-left: 10px;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+/* Cards styling */
+.info-card, .hobby-container {
+    background-color: rgba(28, 37, 65, 0.75);
+    padding: 2.2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.info-card:hover, .hobby-container:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    transform: translateY(-2px);
+}
+
+.info-item {
+    margin-bottom: 1.2rem;
+}
+
+.info-item strong {
+    color: var(--elfie-light-blue);
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-item p {
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+/* GAYA TOMBOL SOSMED BARU */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background: rgba(11, 19, 43, 0.5);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    transition: all 0.3s ease;
+}
+
+.social-btn i {
+    font-size: 1.2rem;
+}
+
+/* Efek Hover Instagram */
+.social-btn.instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-color: transparent;
+    box-shadow: 0 0 15px rgba(220, 39, 67, 0.6);
+    transform: translateX(5px);
+}
+
+/* Efek Hover TikTok */
+.social-btn.tiktok:hover {
+    background: #010101;
+    border-color: #00f2fe;
+    box-shadow: -2px -2px 10px rgba(0, 242, 254, 0.5), 2px 2px 10px rgba(254, 44, 85, 0.5);
+    transform: translateX(5px);
+}
+
+/* Progress Bars */
+.skill-bar {
+    margin-bottom: 1.5rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.progress-bg {
+    background-color: rgba(11, 19, 43, 0.6);
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #0284c7, var(--elfie-glow));
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* Portfolio Gallery */
+.portfolio-section {
+    margin-top: 4rem;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.gallery-card {
+    background-color: rgba(28, 37, 65, 0.75);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.gallery-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--elfie-glow);
+    box-shadow: 0 12px 40px 0 rgba(56, 189, 248, 0.25);
+}
+
+.media-portfolio {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    display: block;
+    background-color: #000;
+}
+
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-body h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: var(--elfie-ice);
+    opacity: 0.8;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+    color: var(--elfie-magic-blue);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(56, 189, 248, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-socials a {
+    color: var(--elfie-magic-blue);
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: var(--elfie-glow);
+    transform: scale(1.2);
+}
+
+/* --- TAMBAHAN GAYA BARU UNTUK PROYEK & KELEBIHAN --- */
+
+/* Kelebihan List */
+.advantages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.advantage-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.advantage-item i {
+    font-size: 1.5rem;
+    color: var(--elfie-glow);
+    background: rgba(56, 189, 248, 0.1);
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    min-width: 45px;
+    text-align: center;
+}
+
+.advantage-item strong {
+    color: #ffffff;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.advantage-item p {
+    font-size: 0.9rem;
+    color: var(--elfie-ice);
+    opacity: 0.8;
+}
+
+/* Placeholder Media Project */
+.media-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, var(--elfie-deep-blue) 0%, var(--elfie-dark) 100%);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* Tag di atas kartu Project */
+.gallery-card {
+    position: relative;
+}
+
+.project-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(11, 19, 43, 0.85);
+    color: var(--elfie-glow);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 1px solid var(--elfie-glow);
+    z-index: 2;
+    text-transform: uppercase;
+}
+
+.profile-avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+    border: 3px solid var(--elfie-glow);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+/* --- GAYA BARU UNTUK FOTO / GAMBAR DI PROJECT UTAMA --- */
+.media-portfolio-project {
+    width: 100%;
+    height: 200px; /* Menyamakan tinggi gambar dengan section video */
+    object-fit: cover; /* Biar gambar gak gepeng dan proporsional */
+    object-position: center;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    display: block;
+    background-color: #000;
+    transition: transform 0.3s ease;
+}
+
+/* Efek zoom tipis pada foto saat kartu project di-hover kursor */
+.gallery-card:hover .media-portfolio-project {
+    transform: scale(1.03);
+}
+
+/* Efek interaktif saat foto disorot mouse */
+.profile-avatar:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 0 35px rgba(56, 189, 248, 0.9), 0 0 15px #ffffff;
+    border-color: #ffffff;
+}
+
+/* Responsif untuk layar HP kecil */
+@media (max-width: 480px) {
+    header {
+        padding: 4rem 1rem;
+    }
+    .profile-avatar {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+/* --- FLOATING MUSIC PLAY/PAUSE BUTTON --- */
+.music-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(28, 37, 65, 0.85);
+    border: 2px solid var(--elfie-glow);
+    color: var(--elfie-glow);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Memastikan tombol selalu berada di paling atas */
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8), 0 0 5px #ffffff;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+/* Animasi berputar saat musik sedang menyala */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.music-btn.playing {
+    animation: spin 4s linear infinite;
+    background-color: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+    color: #ffffff;
+}
